@@ -1,0 +1,486 @@
+## ======================================================================
+$ grep Nutshell animals.txt
+
+## ======================================================================
+$ cut -f1 grades | sort | uniq -c | sort -nr
+
+## ======================================================================
+$ cd dir
+$ touch new.txt
+
+## ======================================================================
+$ cd dir && touch new.txt
+
+## ======================================================================
+$ cp myfile.txt myfile.safe
+$ nano myfile.txt
+$ rm myfile.safe
+
+## ======================================================================
+$ cp myfile.txt myfile.safe && nano myfile.txt && rm myfile.safe
+
+## ======================================================================
+$ git add . && git commit -m"fixed a bug" && git push
+
+## ======================================================================
+$ cd dir || mkdir dir
+
+## ======================================================================
+cd dir || exit 1
+
+## ======================================================================
+$ cd dir || mkdir dir && cd dir || echo "I failed"
+
+## ======================================================================
+$ ls myfile.txt
+myfile.txt
+$ echo $?
+0
+$ cp nonexistent.txt somewhere.txt
+cp: cannot stat 'nonexistent.txt': No such file or directory
+$ echo $?
+1
+
+## ======================================================================
+$ sleep 7200; cp -a ~/important-files /mnt/backup_drive
+
+## ======================================================================
+$ sleep 300; echo "remember to walk the dog" | mail -s reminder $USER
+
+## ======================================================================
+$ mv file1 file2; mv file2 file3; mv file3 file4
+$ echo $?
+0
+
+## ======================================================================
+$ grep -l "Artist: Kansas" *.txt
+carry_on_wayward_son.txt
+dust_in_the_wind.txt
+belexes.txt
+
+## ======================================================================
+$ mkdir kansas
+$ mv carry_on_wayward_son.txt kansas
+$ mv dust_in_the_wind.txt kansas
+$ mv belexes.txt kansas
+
+## ======================================================================
+$ mv $(grep -l "Artist: Kansas" *.txt) kansas
+
+## ======================================================================
+$( any command here)
+
+## ======================================================================
+$ mv carry_on_wayward_son.txt dust_in_the_wind.txt belexes.txt kansas
+
+## ======================================================================
+$ ls eStmt*pdf | tail -n1
+
+## ======================================================================
+$ okular $(ls eStmt*pdf | tail -n1)
+
+## ======================================================================
+$ echo Today is $(date +%A).
+Today is Saturday.
+$ echo Today is `date +%A`.
+Today is Saturday.
+
+## ======================================================================
+$ echo $(date +%A) | tr a-z A-Z
+SATURDAY
+$ echo Today is $(echo $(date +%A) | tr a-z A-Z)!
+Today is SATURDAY!
+
+## ======================================================================
+$ kansasFiles=$(grep -l "Artist: Kansas" *.txt)
+
+## ======================================================================
+$ echo "$kansasFiles"
+
+## ======================================================================
+$ mkdir /tmp/jpegs && cd /tmp/jpegs
+$ touch {1..1000}.jpg
+$ rm 4.jpg 981.jpg
+
+## ======================================================================
+$ ls -1 | sort -n | less
+1.jpg
+2.jpg
+3.jpg
+5.jpg
+
+## ======================================================================
+$ ls *.jpg | sort -n > /tmp/original-list
+
+## ======================================================================
+$ seq 1 1000 | sed 's/$/.jpg/' > /tmp/full-list
+
+## ======================================================================
+$ diff /tmp/original-list /tmp/full-list
+3a4
+> 4.jpg
+979a981
+> 981.jpg
+$ rm /tmp/original-list /tmp/full-list
+
+## ======================================================================
+$ cat <(ls -1 | sort -n)
+1.jpg
+2.jpg
+
+## ======================================================================
+$ cp <(ls -1 | sort -n) /tmp/listing
+$ cat /tmp/listing
+1.jpg
+2.jpg
+
+## ======================================================================
+$ diff <(ls *.jpg | sort -n) <(seq 1 1000 | sed 's/$/.jpg/')
+3a4
+> 4.jpg
+979a981
+> 981.jpg
+
+## ======================================================================
+$ diff <(ls *.jpg | sort -n) <(seq 1 1000 | sed 's/$/.jpg/') \
+| grep '>' \
+| cut -c3-
+4.jpg
+981.jpg
+
+## ======================================================================
+$ echo <(ls)
+/dev/fd/63
+
+## ======================================================================
+$ bash -c "ls -l"
+-rw-r--r-- 1 smith smith 325 Jul  3 17:44 animals.txt
+
+## ======================================================================
+$ pwd
+/home/smith
+$ touch /tmp/badfile
+$ bash -c "cd /tmp && rm badfile"
+$ pwd
+/home/smith
+
+## ======================================================================
+$ sudo echo "New log file" > /var/log/custom.log
+bash: /var/log/custom.log: Permission denied
+
+## ======================================================================
+$ sudo bash -c 'echo "New log file" > /var/log/custom.log'
+[sudo] password for smith: xxxxxxxx
+$ cat /var/log/custom.log
+New log file
+
+## ======================================================================
+$ echo "ls -l"
+ls -l
+$ echo "ls -l" | bash
+-rw-r--r-- 1 smith smith 325 Jul  3 17:44 animals.txt
+
+## ======================================================================
+$ ls -1 ??*
+apple
+banana
+cantaloupe
+carrot
+
+## ======================================================================
+$ mkdir {a..z}
+
+## ======================================================================
+$ ls -1 ??* | sed 's/^\(.\)\(.*\)$/mv \1\2 \1/'
+mv apple a
+mv banana b
+mv cantaloupe c
+mv carrot c
+
+## ======================================================================
+$ ls -1 ??* | sed 's/^\(.\)\(.*\)$/mv \1\2 \1/' | less
+
+## ======================================================================
+$ ls -1 ??* | sed 's/^\(.\)\(.*\)$/mv \1\2 \1/' | bash
+
+## ======================================================================
+$ ssh myhost.example.com
+
+## ======================================================================
+$ ssh myhost.example.com ls
+remotefile1
+remotefile2
+remotefile3
+
+## ======================================================================
+$ ssh myhost.example.com ls > outfile
+$ ssh myhost.example.com "ls > outfile"
+
+## ======================================================================
+$ echo "ls > outfile" | ssh myhost.example.com
+
+## ======================================================================
+$ echo "ls > outfile" | ssh -T myhost.example.com
+
+## ======================================================================
+$ echo "ls > outfile" | ssh myhost.example.com bash
+
+## ======================================================================
+$ ls -1
+apple
+banana
+cantaloupe
+
+## ======================================================================
+$ ls -1 | xargs wc -l
+3 apple
+4 banana
+1 cantaloupe
+8 total
+
+## ======================================================================
+$ ls -1 | xargs cat
+
+## ======================================================================
+$ wc -l *
+3 apple
+4 banana
+1 cantaloupe
+8 total
+
+## ======================================================================
+$ find . -type f -name \*.py -print
+./fruits/raspberry.py
+./vegetables/leafy/lettuce.py
+
+## ======================================================================
+$ find . -type f -name \*.py -print0 | xargs -0 wc -l
+6 ./fruits/raspberry.py
+3 ./vegetables/leafy/lettuce.py
+9 total
+
+## ======================================================================
+$ ls | xargs echo
+apple banana cantaloupe carrot
+$ ls | xargs -n1 echo
+apple
+banana
+cantaloupe
+carrot
+$ ls | xargs -n2 echo
+apple banana
+cantaloupe carrot
+$ ls | xargs -n3 echo
+apple banana cantaloupe
+carrot
+
+## ======================================================================
+$ find options... -print0 | xargs -0 options... 
+
+## ======================================================================
+$ ls | tr '\n' '\0' | xargs -0 ...
+
+## ======================================================================
+alias ls0="find . -maxdepth 1 -print0"
+
+## ======================================================================
+$ ls | xargs -I XYZ echo XYZ is my favorite food
+apple is my favorite food
+banana is my favorite food
+cantaloupe is my favorite food
+carrot is my favorite food
+
+## ======================================================================
+$ rm *.txt
+bash: /bin/rm: Argument list too long
+
+## ======================================================================
+$ ls | grep '\.txt$' | xargs rm
+
+## ======================================================================
+$ find . -maxdepth 1 -name \*.txt -type f -print0 \
+| xargs -0 rm
+
+## ======================================================================
+$ wc -c my_extremely_huge_file.txt &
+[1] 74931
+$
+
+## ======================================================================
+59837483748 my_extremely_huge_file.txt
+[1]+  Done              wc -c my_extremely_huge_file.txt
+
+## ======================================================================
+[1]+  Exit 1            wc -c my_extremely_huge_file.txt
+
+## ======================================================================
+$ command1 & command2 & command3 &
+[1] 57351
+[2] 57352
+[3] 57353
+$ command4 & command5 & echo hi
+[1] 57431
+[2] 57432
+hi
+
+## ======================================================================
+$ wc -c my_extremely_huge_file.txt &
+[1] 74931
+
+## ======================================================================
+$ sleep 20 &
+[1] 126288
+$ jobs
+[1]+  Running          sleep 20 &
+$
+[1]+  Done             sleep 20
+
+## ======================================================================
+$ sleep 20 &
+[1] 126362
+$ fg
+sleep 20
+$
+
+## ======================================================================
+$ sleep 20
+【Ctrl-Z】
+[1]+  Stopped          sleep 20
+$ jobs
+[1]+  Stopped          sleep 20
+$ fg
+sleep 20
+
+## ======================================================================
+$ sleep 20
+【Ctrl-Z】
+[1]+  Stopped          sleep 20
+$ bg
+[1]+ sleep 20 &
+$ jobs
+[1]+  Running          sleep 20 &
+$
+[1]+  Done             sleep 20
+
+## ======================================================================
+$ sleep 100 &
+[1] 126452
+$ sleep 200 &
+[2] 126456
+$ sleep 300 &
+[3] 126460
+$ jobs
+[1]   Running          sleep 100 &
+[2]-  Running          sleep 200 &
+[3]+  Running          sleep 300 &
+$ fg %2
+sleep 200
+【Ctrl-Z】
+[2]+  Stopped          sleep 200
+$ jobs
+[1]   Running          sleep 100 &
+[2]+  Stopped          sleep 200
+[3]-  Running          sleep 300 &
+$ kill %3
+$ jobs
+[1]-  Running          sleep 100 &
+[2]+  Stopped          sleep 200
+$ bg %2
+[2]+ sleep 200 &
+$ jobs
+[1]-  Running          sleep 100 &
+[2]+  Running          sleep 200 &
+$
+
+## ======================================================================
+$ sort /usr/share/dict/words | head -n2 &
+[1] 81089
+$
+
+## ======================================================================
+$ sort /usr/share/dict/words | head -n2 &
+[1] 81089
+$ A
+A's
+
+## ======================================================================
+[1]+  Done              sort /usr/share/dict/words | head -n2
+$
+
+## ======================================================================
+$ sort /usr/share/dict/words | head -n2 > /tmp/results &
+[1] 81089
+$
+[1]+  Done              sort /usr/share/dict/words | head -n2 > /tmp/results
+$ cat /tmp/results
+A
+A's
+$
+
+## ======================================================================
+$ cat &
+[1] 82455
+[1]+  Stopped           cat
+
+## ======================================================================
+$ fg
+cat
+Here is some input
+Here is some input
+
+## ======================================================================
+$ command1 && command2 && command3 &
+
+## ======================================================================
+$ (cd /usr/local && ls)
+bin   etc   games   lib   man   sbin   share
+$ pwd
+/home/smith
+
+## ======================================================================
+$ tar xvf package.tar.gz
+Makefile
+src/
+src/defs.h
+src/main.c
+
+## ======================================================================
+$ cat package.tar.gz | (mkdir -p /tmp/other && cd /tmp/other && tar xzvf -)
+
+## ======================================================================
+$ tar czf - dir1 | (cd /tmp/dir2 && tar xzvf -)
+
+## ======================================================================
+$ tar czf - dir1 | ssh myhost '(cd /tmp/dir2 && tar xzvf -)'
+
+## ======================================================================
+$ echo $BASH_SUBSHELL
+0
+$ (echo $BASH_SUBSHELL)
+1
+$ echo $(echo $BASH_SUBSHELL)
+1
+$ cat <(echo $BASH_SUBSHELL)
+1
+$ bash -c 'echo $BASH_SUBSHELL'
+0
+
+## ======================================================================
+$ bash
+$ PS1="Doomed> "
+Doomed> echo hello
+hello
+
+## ======================================================================
+Doomed> exec ls
+animals.txt
+$
+
+## ======================================================================
+$ cat /tmp/outfile2
+My name is smith
+My current directory is /home/smith
+Guess how many lines are in the file /etc/hosts?
+122 /etc/hosts
+Goodbye for now
+

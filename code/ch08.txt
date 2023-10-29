@@ -1,0 +1,408 @@
+## ======================================================================
+$ paste <(echo {1..10}.jpg | sed 's/ /\n/g') \
+<(echo {0..9}.jpg | sed 's/ /\n/g') \
+| sed 's/^/mv /' \
+| bash
+
+## ======================================================================
+$ echo {1..10}.jpg
+1.jpg 2.jpg 3.jpg ... 10.jpg
+$ echo {0..9}.jpg
+0.jpg 1.jpg 2.jpg ... 9.jpg
+
+## ======================================================================
+$ echo {1..10}.jpg | sed 's/ /\n/g'
+1.jpg
+2.jpg
+10.jpg
+$ echo {0..9}.jpg | sed 's/ /\n/g'
+0.jpg
+1.jpg
+9.jpg
+
+## ======================================================================
+$ paste <(echo {1..10}.jpg | sed 's/ /\n/g') \
+<(echo {0..9}.jpg | sed 's/ /\n/g')
+1.jpg   0.jpg
+2.jpg   1.jpg
+10.jpg  9.jpg
+
+## ======================================================================
+$ paste <(echo {1..10}.jpg | sed 's/ /\n/g') \
+<(echo {0..9}.jpg | sed 's/ /\n/g') \
+| sed 's/^/mv /'
+mv 1.jpg   0.jpg
+mv 2.jpg   1.jpg
+mv 10.jpg  9.jpg
+
+## ======================================================================
+$ paste <(echo {1..10}.jpg | sed 's/ /\n/g') \
+<(echo {0..9}.jpg | sed 's/ /\n/g') \
+| sed 's/^/mv /' \
+| bash
+
+## ======================================================================
+$ ls *.jpg
+
+## ======================================================================
+$ ls | grep '\.jpg$'
+
+## ======================================================================
+$ echo $(ls *.jpg)
+$ bash -c 'ls *.jpg'
+$ cat <(ls *.jpg)
+$ find . -maxdepth 1 -type f -name \*.jpg -print
+$ ls > tmp && grep '\.jpg$' tmp && rm -f tmp
+$ paste <(echo ls) <(echo \*.jpg) | bash
+$ bash -c 'exec $(paste <(echo ls) <(echo \*.jpg))'
+$ echo 'monkey *.jpg' | sed 's/monkey/ls/' | bash
+$ python -c 'import os; os.system("ls *.jpg")'
+
+## ======================================================================
+$ echo {A..Z}
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+
+## ======================================================================
+$ echo {A..Z} | awk '{print $(17)}'
+Q
+$ echo {A..Z} | sed 's/ //g' | cut -c17
+Q
+
+## ======================================================================
+$ echo {1..12}
+1 2 3 4 5 6 7 8 9 10 11 12
+
+## ======================================================================
+$ echo 2021-{01..12}-01 | xargs -n1 date +%B -d
+January
+February
+March
+December
+
+## ======================================================================
+$ ls
+animals.txt  cartoon-mascots.txt  ...  zebra-stripes.txt
+
+## ======================================================================
+$ ls | awk '{print "echo -n", $0, "| wc -c"}'
+echo -n "animals.txt" | wc -c
+echo -n "cartoon-mascots.txt | wc -c"
+echo -n "zebra-stripes.txt | wc -c"
+
+## ======================================================================
+$ ls | awk '{print "echo -n", $0, "| wc -c"}' | bash | sort -nr | head -n1
+27
+
+## ======================================================================
+$  command1 |  command2 |  command3 | tee outfile |  command4 |  command5 
+$ less outfile
+
+## ======================================================================
+$ ls
+ch01.asciidoc  ch03.asciidoc  ch05.asciidoc  ch07.asciidoc  ch09.asciidoc
+ch02.asciidoc  ch04.asciidoc  ch06.asciidoc  ch08.asciidoc  ch10.asciidoc
+
+## ======================================================================
+$ mv ch10.asciidoc ch11.asciidoc
+$ mv ch09.asciidoc ch10.asciidoc
+$ mv ch08.asciidoc ch09.asciidoc
+$ mv ch03.asciidoc ch04.asciidoc
+
+## ======================================================================
+$ seq -w 10 -1 3
+10
+09
+08
+03
+
+## ======================================================================
+$ seq -w 10 -1 3 | sed 's/\(.*\)/ch\1.asciidoc/'
+ch10.asciidoc
+ch09.asciidoc
+ch03.asciidoc
+
+## ======================================================================
+$ seq -w 11 -1 4 | sed 's/\(.*\)/ch\1.asciidoc/'
+ch11.asciidoc
+ch10.asciidoc
+ch04.asciidoc
+
+## ======================================================================
+$ paste <(seq -w 10 -1 3 | sed 's/\(.*\)/ch\1.asciidoc/') \
+<(seq -w 11 -1 4 | sed 's/\(.*\)/ch\1.asciidoc/')
+ch10.asciidoc   ch11.asciidoc
+ch09.asciidoc   ch10.asciidoc
+ch03.asciidoc   ch04.asciidoc
+
+## ======================================================================
+$ paste <(seq -w 10 -1 3 | sed 's/\(.*\)/ch\1.asciidoc/') \
+<(seq -w 11 -1 4 | sed 's/\(.*\)/ch\1.asciidoc/') \
+| sed 's/^/mv /'
+mv ch10.asciidoc    ch11.asciidoc
+mv ch09.asciidoc    ch10.asciidoc
+mv ch03.asciidoc    ch04.asciidoc
+
+## ======================================================================
+$ paste <(seq -w 10 -1 3 | sed 's/\(.*\)/ch\1.asciidoc/') \
+<(seq -w 11 -1 4 | sed 's/\(.*\)/ch\1.asciidoc/') \
+| sed 's/^/mv /' \
+| bash
+
+## ======================================================================
+$ ls ch*.asciidoc
+ch01.asciidoc  ch04.asciidoc  ch06.asciidoc  ch08.asciidoc  ch10.asciidoc
+ch02.asciidoc  ch05.asciidoc  ch07.asciidoc  ch09.asciidoc  ch11.asciidoc
+
+## ======================================================================
+$ ls
+bald_eagle.jpg  blue_jay.jpg  cardinal.txt  robin.jpg  wren.jpg
+bald_eagle.txt  cardinal.jpg  oriole.txt    robin.txt  wren.txt
+
+## ======================================================================
+$ ls *.jpg | cut -d. -f1
+bald_eagle
+blue_jay
+cardinal
+robin
+wren
+$ ls *.txt | cut -d. -f1
+bald_eagle
+cardinal
+oriole
+robin
+wren
+
+## ======================================================================
+$ diff <(ls *.jpg | cut -d. -f1) <(ls *.txt | cut -d. -f1)
+2d1
+< blue_jay
+3a3
+> oriole
+
+## ======================================================================
+$ diff <(ls *.jpg | cut -d. -f1) <(ls *.txt | cut -d. -f1) \
+| grep '^[<>]'
+< blue_jay
+> oriole
+
+## ======================================================================
+$ diff <(ls *.jpg | cut -d. -f1) <(ls *.txt | cut -d. -f1) \
+| grep '^[<>]' \
+| awk '/^</{print $2 ".jpg"} /^>/{print $2 ".txt"}'
+blue_jay.jpg
+oriole.txt
+
+## ======================================================================
+blue_jay.jpg
+oriole.txt
+yellow.jpg
+
+## ======================================================================
+$ diff <(ls *.jpg | sed 's/\.[^.]*$//') \
+<(ls *.txt | sed 's/\.[^.]*$//') \
+| grep '^[<>]' \
+| awk '/</{print $2 ".jpg"} />/{print $2 ".txt"}'
+blue_jay.jpg
+oriole.txt
+yellow.canary.jpg
+
+## ======================================================================
+$ ls *.{jpg,txt} \
+| sed 's/\.[^.]*$//' \
+| uniq -c
+2 bald_eagle
+1 blue_jay
+2 cardinal
+1 oriole
+2 robin
+2 wren
+1 yellow.canary
+
+## ======================================================================
+$ ls *.{jpg,txt} \
+| sed 's/\.[^.]*$//' \
+| uniq -c \
+| awk '/^ *1 /{print $2}'
+blue_jay
+oriole
+yellow.canary
+
+## ======================================================================
+$ ls *.{jpg,txt} \
+| sed 's/\.[^.]*$//' \
+| uniq -c \
+| awk '/^ *1 /{print $2 "*"}'
+blue_jay*
+oriole*
+yellow.canary*
+
+## ======================================================================
+$ ls -1 $(ls *.{jpg,txt} \
+| sed 's/\.[^.]*$//' \
+| uniq -c \
+| awk '/^ *1 /{print $2 "*"}')
+blue_jay.jpg
+oriole.txt
+yellow.canary.jpg
+
+## ======================================================================
+$ (cd && ls -d */)
+Family/  Finances/  Linux/  Music/  Work/
+
+## ======================================================================
+$ (cd && ls -d */) | sed 's/^/$HOME\//g'
+$HOME/Family/
+$HOME/Finances/
+$HOME/Linux/
+$HOME/Music/
+$HOME/Work/
+
+## ======================================================================
+$ (cd && ls -d */) | sed 's@^@$HOME/@g'
+$HOME/Family/
+$HOME/Finances/
+$HOME/Linux/
+$HOME/Music/
+$HOME/Work/
+
+## ======================================================================
+$ (cd && ls -d */) | sed -e 's@^@$HOME/@g' -e 's@/$@@'
+$HOME/Family
+$HOME/Finances
+$HOME/Linux
+$HOME/Music
+$HOME/Work
+
+## ======================================================================
+$ echo $(cd && ls -d */ | sed -e 's@^@$HOME/@' -e 's@/$@@')
+$HOME/Family $HOME/Finances $HOME/Linux $HOME/Music $HOME/Work
+
+## ======================================================================
+$ echo '$HOME' \
+$(cd && ls -d */ | sed -e 's@^@$HOME/@' -e 's@/$@@') \
+..
+$HOME $HOME/Family $HOME/Finances $HOME/Linux $HOME/Music $HOME/Work ..
+
+## ======================================================================
+$ echo '$HOME' \
+$(cd && ls -d */ | sed -e 's@^@$HOME/@' -e 's@/$@@') \
+.. \
+| tr ' ' ':'
+$HOME:$HOME/Family:$HOME/Finances:$HOME/Linux:$HOME/Music:$HOME/Work:..
+
+## ======================================================================
+$ echo 'CDPATH=$HOME' \
+$(cd && ls -d */ | sed -e 's@^@$HOME/@' -e 's@/$@@') \
+.. \
+| tr ' ' ':'
+CDPATH=$HOME:$HOME/Family:$HOME/Finances:$HOME/Linux:$HOME/Music:$HOME/Work:..
+
+## ======================================================================
+$ wc -l /usr/share/dict/words
+102305 /usr/share/dict/words
+
+## ======================================================================
+$ shuf /usr/share/dict/words | head -n3
+evermore
+shirttail
+tertiary
+$ shuf /usr/share/dict/words | head -n3
+interactively
+opt
+perjurer
+
+## ======================================================================
+$ echo $RANDOM $RANDOM $RANDOM
+7855 11134 262
+
+## ======================================================================
+$ shuf -n $RANDOM /usr/share/dict/words | wc -l
+9922
+$ shuf -n $RANDOM /usr/share/dict/words | wc -l
+32465
+
+## ======================================================================
+$ pwgen
+eng9nooG ier6YeVu AhZ7naeG Ap3quail poo2Ooj9 OYiuri9m iQuash0E voo3Eph1
+IeQu7mi6 eipaC2ti exah8iNg oeGhahm8 airooJ8N eiZ7neez Dah8Vooj dixiV1fu
+Xiejoti6 ieshei2K iX4isohk Ohm5gaol Ri9ah4eX Aiv1ahg3 Shaew3ko zohB4geu
+
+## ======================================================================
+$ pwgen -N1 10
+ieb2ESheiw
+
+## ======================================================================
+$ echo $(pwgen -N1 10).txt
+ohTie8aifo.txt
+
+## ======================================================================
+$ mkdir -p /tmp/randomfiles && cd /tmp/randomfiles
+$ shuf -n $RANDOM -o $(pwgen -N1 10).txt /usr/share/dict/words
+
+## ======================================================================
+$ ls
+Ahxiedie2f.txt
+$ wc -l Ahxiedie2f.txt
+13544 Ahxiedie2f.txt
+$ head -n3 Ahxiedie2f.txt
+saviors
+guerillas
+forecaster
+
+## ======================================================================
+for i in {1..1000}; do
+shuf -n $RANDOM -o $(pwgen -N1 10).txt /usr/share/dict/words
+done
+
+## ======================================================================
+$ echo 'shuf -n $RANDOM -o $(pwgen -N1 10).txt /usr/share/dict/words'
+shuf -n $RANDOM -o $(pwgen -N1 10).txt /usr/share/dict/words
+
+## ======================================================================
+$ echo 'shuf -n $RANDOM -o $(pwgen -N1 10).txt /usr/share/dict/words' | bash
+$ ls
+eiFohpies1.txt
+
+## ======================================================================
+$ yes 'shuf -n $RANDOM -o $(pwgen -N1 10).txt /usr/share/dict/words' \
+| head -n 1000 \
+| bash
+$ ls
+Aen1lee0ir.txt  IeKaveixa6.txt  ahDee9lah2.txt paeR1Poh3d.txt
+Ahxiedie2f.txt  Kas8ooJahK.txt  aoc0Yoohoh.txt sohl7Nohho.txt
+CudieNgee4.txt  Oe5ophae8e.txt  haiV9mahNg.txt uchiek3Eew.txt
+
+## ======================================================================
+$ yes 'convert -size 8x8 xc: +noise Random -scale 100x100 $(pwgen -N1 10).png' \
+| head -n 1000 \
+| bash
+$ ls
+Bahdo4Yaop.png  Um8ju8gie5.png  aing1QuaiX.png  ohi4ziNuwo.png
+Eem5leijae.png  Va7ohchiep.png  eiMoog1kou.png  ohnohwu4Ei.png
+Eozaing1ie.png  Zaev4Quien.png  hiecima2Ye.png  quaepaiY9t.png
+$ display Bahdo4Yaop.png
+
+## ======================================================================
+$ mkdir /tmp/empties
+$ cd /tmp/empties
+$ touch file{01..1000}.txt
+
+## ======================================================================
+$ grep '^[a-z]*$' /usr/share/dict/words
+a
+aardvark
+aardvarks
+
+## ======================================================================
+$ grep '^[a-z]*$' /usr/share/dict/words | shuf | head -n1000
+triplicating
+quadruplicates
+podiatrists
+
+## ======================================================================
+$ grep '^[a-z]*$' /usr/share/dict/words | shuf | head -n1000 | xargs touch
+$ ls
+abases             distinctly      magnolia         sadden
+abets              distrusts       maintaining      sales
+aboard             divided         malformation     salmon
+

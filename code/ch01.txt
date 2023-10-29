@@ -1,0 +1,397 @@
+## ======================================================================
+$ ls -l /bin
+total 12104
+-rwxr-xr-x 1 root root 1113504 Jun  6  2019 bash
+-rwxr-xr-x 1 root root  170456 Sep 21  2019 bsd-csh
+-rwxr-xr-x 1 root root   34888 Jul  4  2019 bunzip2
+-rwxr-xr-x 1 root root 2062296 Sep 18  2020 busybox
+-rwxr-xr-x 1 root root   34888 Jul  4  2019 bzcat
+-rwxr-xr-x 1 root root    5047 Apr 27  2017 znew
+
+## ======================================================================
+$ less myfile
+
+## ======================================================================
+$ ls -l /bin | less
+
+## ======================================================================
+$ man wc
+
+## ======================================================================
+$ wc animals.txt
+7  51 325 animals.txt
+
+## ======================================================================
+$ wc -l animals.txt
+7 animals.txt
+$ wc -w animals.txt
+51 animals.txt
+$ wc -c animals.txt
+325 animals.txt
+
+## ======================================================================
+$ ls -1
+animals.txt
+myfile
+myfile2
+test.py
+$ ls -1 | wc -l
+4
+
+## ======================================================================
+$ wc animals.txt
+7  51 325 animals.txt
+$ wc animals.txt | wc -w
+4
+
+## ======================================================================
+$ wc animals.txt | wc -w | wc
+1       1       2
+
+## ======================================================================
+$ ls /bin
+bash        dir         kmod      networkctl       red     tar
+bsd-csh     dmesg       less      nisdomainname    rm      tempfile
+
+## ======================================================================
+$ ls /bin | cat
+bash
+bsd-csh
+bunzip2
+busybox
+
+## ======================================================================
+$ ls
+animals.txt   myfile   myfile2    test.py
+$ ls | wc -l
+4
+
+## ======================================================================
+$ head -n3 animals.txt
+python  Programming Python      2010    Lutz, Mark
+snail   SSH, The Secure Shell   2005    Barrett, Daniel
+alpaca  Intermediate Perl       2012    Schwartz, Randal
+
+## ======================================================================
+$ head -n3 animals.txt | wc -w
+20
+
+## ======================================================================
+$ ls /bin | head -n5
+bash
+bsd-csh
+bunzip2
+busybox
+bzcat
+
+## ======================================================================
+$ cut -f2 animals.txt
+Programming Python
+SSH, The Secure Shell
+Intermediate Perl
+MySQL High Availability
+Linux in a Nutshell
+Cisco IOS in a Nutshell
+Writing Word Macros
+
+## ======================================================================
+$ cut -f2 animals.txt | head -n3
+Programming Python
+SSH, The Secure Shell
+Intermediate Perl
+
+## ======================================================================
+$ cut -f1,3 animals.txt | head -n3
+python  2010
+snail   2005
+alpaca  2012
+
+## ======================================================================
+$ cut -f2-4 animals.txt | head -n3
+Programming Python      2010    Lutz, Mark
+SSH, The Secure Shell   2005    Barrett, Daniel
+Intermediate Perl       2012    Schwartz, Randal
+
+## ======================================================================
+$ cut -c1-3 animals.txt
+pyt
+sna
+alp
+rob
+hor
+don
+ory
+
+## ======================================================================
+$ cut -f4 animals.txt
+Lutz, Mark
+Barrett, Daniel
+Schwartz, Randal
+
+## ======================================================================
+$ cut -f4 animals.txt | cut -d, -f1
+Lutz
+Barrett
+Schwartz
+
+## ======================================================================
+$ grep Nutshell animals.txt
+horse   Linux in a Nutshell        2009    Siever, Ellen
+donkey  Cisco IOS in a Nutshell    2005    Boney, James
+
+## ======================================================================
+$ grep -v Nutshell animals.txt
+python  Programming Python      2010    Lutz, Mark
+snail   SSH, The Secure Shell   2005    Barrett, Daniel
+alpaca  Intermediate Perl       2012    Schwartz, Randal
+robin   MySQL High Availability 2014    Bell, Charles
+oryx    Writing Word Macros     1999    Roman, Steven
+
+## ======================================================================
+$ grep Perl *.txt
+animals.txt:alpaca      Intermediate Perl       2012    Schwartz, Randal
+essay.txt:really love the Perl programming language, which is
+essay.txt:languages such as Perl, Python, PHP, and Ruby
+
+## ======================================================================
+$ ls -l /usr/lib
+drwxrwxr-x  12 root root    4096 Mar  1  2020 4kstogram
+drwxr-xr-x   3 root root    4096 Nov 30  2020 GraphicsMagick-1.4
+drwxr-xr-x   4 root root    4096 Mar 19  2020 NetworkManager
+-rw-r--r--   1 root root   35568 Dec  1  2017 attica_kde.so
+-rwxr-xr-x   1 root root     684 May  5  2018 cnf-update-db
+
+## ======================================================================
+$ ls -l /usr/lib | cut -c1
+d
+d
+d
+-
+-
+
+## ======================================================================
+$ ls -l /usr/lib | cut -c1 | grep d
+d
+d
+d
+
+## ======================================================================
+$ ls -l /usr/lib | cut -c1 | grep d | wc -l
+145
+
+## ======================================================================
+$ sort animals.txt
+alpaca  Intermediate Perl       2012    Schwartz, Randal
+donkey  Cisco IOS in a Nutshell 2005    Boney, James
+horse   Linux in a Nutshell     2009    Siever, Ellen
+oryx    Writing Word Macros     1999    Roman, Steven
+python  Programming Python      2010    Lutz, Mark
+robin   MySQL High Availability 2014    Bell, Charles
+snail   SSH, The Secure Shell   2005    Barrett, Daniel
+
+## ======================================================================
+$ sort -r animals.txt
+snail   SSH, The Secure Shell   2005    Barrett, Daniel
+robin   MySQL High Availability 2014    Bell, Charles
+python  Programming Python      2010    Lutz, Mark
+oryx    Writing Word Macros     1999    Roman, Steven
+horse   Linux in a Nutshell     2009    Siever, Ellen
+donkey  Cisco IOS in a Nutshell 2005    Boney, James
+alpaca  Intermediate Perl       2012    Schwartz, Randal
+
+## ======================================================================
+$ cut -f3 animals.txt
+2010
+2005
+2012
+2014
+2009
+2005
+1999
+$ cut -f3 animals.txt | sort -n
+1999
+2005
+2005
+2009
+2010
+2012
+2014
+$ cut -f3 animals.txt | sort -nr
+2014
+2012
+2010
+2009
+2005
+2005
+1999
+
+## ======================================================================
+$ cut -f3 animals.txt | sort -nr | head -n1
+2014
+
+## ======================================================================
+... | sort -nr | head -n1
+
+## ======================================================================
+... | sort -n | head -n1
+
+## ======================================================================
+$ head -n5 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+smith:x:1000:1000:Aisha Smith,,,:/home/smith:/bin/bash
+jones:x:1001:1001:Bilbo Jones,,,:/home/jones:/bin/bash
+
+## ======================================================================
+$ head -n5 /etc/passwd | cut -d: -f1
+root
+daemon
+bin
+smith
+jones
+
+## ======================================================================
+$ head -n5 /etc/passwd | cut -d: -f1 | sort
+bin
+daemon
+jones
+root
+smith
+
+## ======================================================================
+$ cat /etc/passwd | cut -d: -f1 | sort
+
+## ======================================================================
+$ cut -d: -f1 /etc/passwd | grep -w jones
+jones
+$ cut -d: -f1 /etc/passwd | grep -w rutabaga
+
+## ======================================================================
+$ cat letters
+A
+A
+A
+B
+B
+A
+C
+C
+C
+C
+$ uniq letters
+A
+B
+A
+C
+
+## ======================================================================
+$ uniq -c letters
+3 A
+2 B
+1 A
+4 C
+
+## ======================================================================
+$ cat grades
+C       Geraldine
+B       Carmine
+A       Kayla
+A       Sophia
+B       Haresh
+C       Liam
+B       Elijah
+B       Emma
+A       Olivia
+D       Noah
+F       Ava
+
+## ======================================================================
+$ cut -f1 grades | sort
+A
+A
+A
+B
+B
+B
+B
+C
+C
+D
+F
+
+## ======================================================================
+$ cut -f1 grades | sort | uniq -c
+3 A
+4 B
+2 C
+1 D
+1 F
+
+## ======================================================================
+$ cut -f1 grades | sort | uniq -c | sort -nr
+4 B
+3 A
+2 C
+1 F
+1 D
+
+## ======================================================================
+$ cut -f1 grades | sort | uniq -c | sort -nr | head -n1
+4 B
+
+## ======================================================================
+$ cut -f1 grades | sort | uniq -c | sort -nr | head -n1 | cut -c9
+B
+
+## ======================================================================
+$ ls
+image001.jpg  image005.jpg  image009.jpg  image013.jpg  image017.jpg
+image002.jpg  image006.jpg  image010.jpg  image014.jpg  image018.jpg
+
+## ======================================================================
+$ md5sum image001.jpg
+146b163929b6533f02e91bdf21cb9563  image001.jpg
+
+## ======================================================================
+$ md5sum image001.jpg image002.jpg image003.jpg
+146b163929b6533f02e91bdf21cb9563  image001.jpg
+63da88b3ddde0843c94269638dfa6958  image002.jpg
+146b163929b6533f02e91bdf21cb9563  image003.jpg
+
+## ======================================================================
+$ md5sum *.jpg | cut -c1-32 | sort
+1258012d57050ef6005739d0e6f6a257
+146b163929b6533f02e91bdf21cb9563
+146b163929b6533f02e91bdf21cb9563
+17f339ed03733f402f74cf386209aeb3
+
+## ======================================================================
+$ md5sum *.jpg | cut -c1-32 | sort | uniq -c
+1 1258012d57050ef6005739d0e6f6a257
+2 146b163929b6533f02e91bdf21cb9563
+1 17f339ed03733f402f74cf386209aeb3
+
+## ======================================================================
+$ md5sum *.jpg | cut -c1-32 | sort | uniq -c | sort -nr
+3 f6464ed766daca87ba407aede21c8fcc
+2 c7978522c58425f6af3f095ef1de1cd5
+2 146b163929b6533f02e91bdf21cb9563
+1 d8ad913044a51408ec1ed8a204ea9502
+
+## ======================================================================
+$ md5sum *.jpg | cut -c1-32 | sort | uniq -c | sort -nr | grep -v "      1 "
+3 f6464ed766daca87ba407aede21c8fcc
+2 c7978522c58425f6af3f095ef1de1cd5
+2 146b163929b6533f02e91bdf21cb9563
+
+## ======================================================================
+$ md5sum *.jpg | grep 146b163929b6533f02e91bdf21cb9563
+146b163929b6533f02e91bdf21cb9563  image001.jpg
+146b163929b6533f02e91bdf21cb9563  image003.jpg
+
+## ======================================================================
+$ md5sum *.jpg | grep 146b163929b6533f02e91bdf21cb9563 | cut -c35-
+image001.jpg
+image003.jpg
+

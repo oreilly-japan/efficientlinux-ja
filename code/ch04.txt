@@ -1,0 +1,303 @@
+## ======================================================================
+$ cd /usr/share/lib/etc/bin
+$ pwd
+/usr/share/lib/etc/bin
+
+## ======================================================================
+$ pwd
+/etc
+$ cd
+$ pwd
+/home/smith
+
+## ======================================================================
+$ cd $HOME/Work
+
+## ======================================================================
+$ cd ~/Work
+
+## ======================================================================
+$ echo $HOME ~
+/home/smith /home/smith
+
+## ======================================================================
+$ echo ~jones
+/home/jones
+
+## ======================================================================
+$ cd /usr
+$ ls
+bin  games  include  lib  local  sbin  share  src
+
+## ======================================================================
+$ cd sha【Tab】
+
+## ======================================================================
+$ cd share/
+
+## ======================================================================
+$ cd s【Tab】
+
+## ======================================================================
+$ cd s【Tab】【Tab】
+sbin/  share/  src/
+
+## ======================================================================
+$ cd sh【Tab】
+
+## ======================================================================
+$ cd share/
+
+## ======================================================================
+alias work="cd $HOME/Work/Projects/Web/src/include"
+
+## ======================================================================
+$ work
+$ pwd
+/home/smith/Work/Projects/Web/src/include
+
+## ======================================================================
+$ work=$HOME/Work/Projects/Web/src/include
+$ cd $work
+$ pwd
+/home/smith/Work/Projects/Web/src/include
+$ ls $work/css
+main.css  mobile.css
+
+## ======================================================================
+alias rcedit='$EDITOR $HOME/.bashrc'
+
+## ======================================================================
+$ qcd beatles
+/home/smith/Music/mp3/Artists/B/Beatles
+
+## ======================================================================
+$ qcd【Tab】【Tab】
+beatles  recipes  video    work
+$ qcd v【Tab】【Enter】
+/data/Arts/Video/Collection
+
+## ======================================================================
+$ cd ~/Family/Memories/Photos
+
+## ======================================================================
+$ cd Photos
+
+## ======================================================================
+bash: cd: Photos: No such file or directory
+
+## ======================================================================
+$ pwd
+/etc
+$ cd Photos
+/home/smith/Family/Memories/Photos
+
+## ======================================================================
+$HOME:$HOME/Projects:$HOME/Family/Memories:/usr/local
+
+## ======================================================================
+$ cd Photos
+
+## ======================================================================
+$ CDPATH=/usr
+$ cd /tmp
+$ cd bin
+/usr/bin
+
+## ======================================================================
+$ pwd
+/etc
+$ cd Work
+/home/smith/Work
+$ cd Family/School
+/home/smith/Family/School
+
+## ======================================================================
+$ pwd
+/etc
+$ cd School
+/home/smith/Family/School
+
+## ======================================================================
+$ pwd
+/usr/bin
+$ ls ..
+bin   include   lib   src
+$ cd lib
+/usr/lib
+
+## ======================================================================
+$ pwd
+/usr/src/myproject
+$ ls
+docs   include   src
+
+## ======================================================================
+$ cd docs
+$ cd include
+/usr/src/myproject/include
+$ cd src
+/usr/src/myproject/src
+
+## ======================================================================
+export CDPATH=$HOME:$HOME/Work:$HOME/Family:$HOME/Finances:$HOME/Linux:$HOME/Music:..
+
+## ======================================================================
+$ cd
+$ (ls -d */ && (ls -d */*/ | cut -d/ -f2-)) | sort | uniq -c | sort -nr | less
+
+## ======================================================================
+$ pwd
+/home/smith/Finances/Bank/Checking/Statements
+$ cd /etc
+
+## ======================================================================
+$ cd -
+/home/smith/Finances/Bank/Checking/Statements
+
+## ======================================================================
+$ pwd
+/usr/local/bin
+$ cd /etc
+$ cd -
+/usr/local/bin
+$ cd -
+/etc
+
+## ======================================================================
+$ cd
+
+## ======================================================================
+$ cd -
+/etc
+$ cd -
+/home/smith
+
+## ======================================================================
+$ cd ~/Work/Projects/Web/src
+$ cd /var/www/html
+$ cd /etc/apache2
+$ cd ~/Work/Projects/Web/src
+$ cd /etc/ssl/certs
+
+## ======================================================================
+$ pwd
+/home/smith/Work/Projects/Web/src
+$ pushd /var/www/html
+/var/www/html ~/Work/Projects/Web/src
+$ pushd /etc/apache2
+/etc/apache2 /var/www/html ~/Work/Projects/Web/src
+$ pushd /etc/ssl/certs
+/etc/ssl/certs /etc/apache2 /var/www/html ~/Work/Projects/Web/src
+$ pwd
+/etc/ssl/certs
+
+## ======================================================================
+$ dirs
+/etc/ssl/certs /etc/apache2 /var/www/html ~/Work/Projects/Web/src
+
+## ======================================================================
+$ dirs -p
+/etc/ssl/certs
+/etc/apache2
+/var/www/html
+~/Work/Projects/Web/src
+
+## ======================================================================
+$ dirs -p | nl -v0
+0  /etc/ssl/certs
+1  /etc/apache2
+2  /var/www/html
+3  ~/Work/Projects/Web/src
+
+## ======================================================================
+$ dirs -v
+0  /etc/ssl/certs
+1  /etc/apache2
+2  /var/www/html
+3  ~/Work/Projects/Web/src
+
+## ======================================================================
+alias dirs='dirs -v'
+
+## ======================================================================
+$ dirs
+/etc/ssl/certs /etc/apache2 /var/www/html ~/Work/Projects/Web/src
+
+## ======================================================================
+$ popd
+/etc/apache2 /var/www/html ~/Work/Projects/Web/src
+$ popd
+/var/www/html ~/Work/Projects/Web/src
+$ popd
+~/Work/Projects/Web/src
+$ popd
+bash: popd: directory stack empty
+$ pwd
+~/Work/Projects/Web/src
+
+## ======================================================================
+alias gd=pushd
+alias pd=popd
+
+## ======================================================================
+$ dirs
+/etc/apache2 ~/Work/Projects/Web/src /var/www/html
+$ pushd
+~/Work/Projects/Web/src /etc/apache2 /var/www/html
+$ pushd
+/etc/apache2 ~/Work/Projects/Web/src /var/www/html
+$ pushd
+~/Work/Projects/Web/src /etc/apache2 /var/www/html
+
+## ======================================================================
+$ dirs
+~/Work/Projects/Web/src /var/www/html /etc/apache2
+$ cd /etc/ssl/certs
+$ dirs
+/etc/ssl/certs /var/www/html /etc/apache2
+
+## ======================================================================
+$ pushd -
+~/Work/Projects/Web/src /etc/ssl/certs /var/www/html /etc/apache2
+$ pushd
+/etc/ssl/certs ~/Work/Projects/Web/src /var/www/html /etc/apache2
+
+## ======================================================================
+alias slurp='pushd - && pushd'
+
+## ======================================================================
+$ pushd +N 
+
+## ======================================================================
+$ dirs
+/etc/ssl/certs ~/Work/Projects/Web/src /var/www/html /etc/apache2
+$ pushd +1
+~/Work/Projects/Web/src /var/www/html /etc/apache2 /etc/ssl/certs
+$ pushd +2
+/etc/apache2 /etc/ssl/certs ~/Work/Projects/Web/src /var/www/html
+
+## ======================================================================
+$ dirs -v
+0  /etc/apache2
+1  /etc/ssl/certs
+2  ~/Work/Projects/Web/src
+3  /var/www/html
+
+## ======================================================================
+$ dirs
+/etc/apache2 /etc/ssl/certs ~/Work/Projects/Web/src /var/www/html
+$ pushd -0
+/var/www/html /etc/apache2 /etc/ssl/certs ~/Work/Projects/Web/src
+
+## ======================================================================
+$ popd +N 
+
+## ======================================================================
+$ dirs
+/var/www/html /etc/apache2 /etc/ssl/certs ~/Work/Projects/Web/src
+$ popd +1
+/var/www/html /etc/ssl/certs ~/Work/Projects/Web/src
+$ popd +2
+/var/www/html /etc/ssl/certs
+

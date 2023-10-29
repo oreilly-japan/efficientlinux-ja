@@ -1,0 +1,324 @@
+## ======================================================================
+$ ls *.py
+data.py    main.py    user_interface.py
+
+## ======================================================================
+$ ls data.py main.py user_interface.py
+
+## ======================================================================
+$ grep Linux chapter1 chapter2 chapter3 chapter4 chapter5
+
+## ======================================================================
+$ grep Linux chapter*
+
+## ======================================================================
+$ grep Linux chapter?
+
+## ======================================================================
+$ grep Linux chapter??
+
+## ======================================================================
+$ grep Linux chapter[12345]
+
+## ======================================================================
+$ grep Linux chapter[1-5]
+
+## ======================================================================
+$ grep Linux chapter*[02468]
+
+## ======================================================================
+$ ls [A-Z]*_*@
+
+## ======================================================================
+$ ls -1 /etc/*.conf
+/etc/adduser.conf
+/etc/appstream.conf
+/etc/wodim.conf
+
+## ======================================================================
+$ ls
+Pictures   Poems    Politics
+$ cd P*
+bash: cd: too many arguments
+
+## ======================================================================
+$ ls *.doc
+/bin/ls: cannot access '*.doc': No such file or directory
+
+## ======================================================================
+$ english2swedish *.txt
+
+## ======================================================================
+$ printenv HOME
+/home/smith
+$ printenv USER
+smith
+
+## ======================================================================
+$ echo My name is $USER and my files are in $HOME
+My name is smith and my files are in /home/smith
+$ echo ch*ter9
+chapter9
+
+## ======================================================================
+$ work=$HOME/Projects
+
+## ======================================================================
+$ cd $work
+$ pwd
+/home/smith/Projects
+
+## ======================================================================
+$ cp myfile $work
+$ ls $work
+myfile
+
+## ======================================================================
+$ work = $HOME/Projects
+work: command not found
+
+## ======================================================================
+$ echo $HOME
+/home/smith
+
+## ======================================================================
+$ echo /home/smith
+
+## ======================================================================
+$ ls
+mammals   reptiles
+$ ls mammals
+lizard.txt  snake.txt
+
+## ======================================================================
+mv mammals/*.txt reptiles
+
+FILES="lizard.txt snake.txt"
+mv mammals/$FILES reptiles
+
+## ======================================================================
+$ echo mammals/*.txt
+mammals/lizard.txt mammals/snake.txt
+
+## ======================================================================
+$ mv mammals/lizard.txt mammals/snake.txt reptiles
+
+## ======================================================================
+$ echo mammals/$FILES
+mammals/lizard.txt snake.txt
+
+## ======================================================================
+$ mv mammals/lizard.txt snake.txt reptiles
+
+## ======================================================================
+$ mv mammals/$FILES reptiles
+/bin/mv: cannot stat 'snake.txt': No such file or directory
+
+## ======================================================================
+FILES="lizard.txt snake.txt"
+for f in $FILES; do
+mv mammals/$f reptiles
+done
+
+## ======================================================================
+$ alias g=grep
+$ alias ll="ls -l"
+
+## ======================================================================
+$ ll
+-rw-r--r-- 1 smith smith 325 Jul  3 17:44 animals.txt
+$ g Nutshell animals.txt
+horse   Linux in a Nutshell     2009    Siever, Ellen
+donkey  Cisco IOS in a Nutshell 2005    Boney, James
+
+## ======================================================================
+$ alias less="less -c"
+
+## ======================================================================
+$ alias
+alias g='grep'
+alias ll='ls -l'
+
+## ======================================================================
+$ alias g
+alias g='grep'
+
+## ======================================================================
+$ unalias g
+
+## ======================================================================
+$ grep Perl animals.txt
+alpaca  Intermediate Perl   2012    Schwartz, Randal
+
+## ======================================================================
+$ grep Perl animals.txt > outfile
+$ cat outfile
+alpaca  Intermediate Perl   2012    Schwartz, Randal
+
+## ======================================================================
+$ grep Perl animals.txt > outfile
+$ echo There was just one match >> outfile
+$ cat outfile
+alpaca  Intermediate Perl   2012    Schwartz, Randal
+There was just one match
+
+## ======================================================================
+$ wc animals.txt
+7  51 325 animals.txt
+$ wc < animals.txt
+7  51 325
+
+## ======================================================================
+$ cp nonexistent.txt file.txt
+cp: cannot stat 'nonexistent.txt': No such file or directory
+
+## ======================================================================
+$ cp nonexistent.txt file.txt > errors
+cp: cannot stat 'nonexistent.txt': No such file or directory
+
+## ======================================================================
+$ cat errors
+
+## ======================================================================
+$ cp nonexistent.txt file.txt 2> errors
+$ cat errors
+cp: cannot stat 'nonexistent.txt': No such file or directory
+
+## ======================================================================
+$ cp nonexistent.txt file.txt 2> errors
+$ cp another.txt file.txt 2>> errors
+$ cat errors
+cp: cannot stat 'nonexistent.txt': No such file or directory
+cp: cannot stat 'another.txt': No such file or directory
+
+## ======================================================================
+$ echo This file exists > goodfile.txt
+$ cat goodfile.txt nonexistent.txt &> all.output
+$ cat all.output
+This file exists
+cat: nonexistent.txt: No such file or directory
+
+## ======================================================================
+$ wc < animals.txt > count
+$ cat count
+7  51 325
+
+## ======================================================================
+$ grep Perl < animals.txt | wc > count
+$ cat count
+1       6      47
+
+## ======================================================================
+$ ls file1 file2 file3
+
+## ======================================================================
+$ ls -l
+-rw-r--r-- 1 smith smith 36 Aug  9 22:12 Efficient Linux Tips.txt
+
+## ======================================================================
+$ cat Efficient Linux Tips.txt
+cat: Efficient: No such file or directory
+cat: Linux: No such file or directory
+cat: Tips.txt: No such file or directory
+
+## ======================================================================
+$ cat 'Efficient Linux Tips.txt'
+$ cat "Efficient Linux Tips.txt"
+$ cat Efficient\ Linux\ Tips.txt
+
+## ======================================================================
+$ echo '$HOME'
+$HOME
+
+## ======================================================================
+$ echo "Notice that $HOME is evaluated"
+Notice that /home/smith is evaluated
+$ echo 'Notice that $HOME is not'
+Notice that $HOME is not
+
+## ======================================================================
+$ echo \$HOME
+$HOME
+
+## ======================================================================
+$ echo "The value of \$HOME is $HOME"
+The value of $HOME is /home/smith
+
+## ======================================================================
+$ echo 'The value of \$HOME is $HOME'
+The value of \$HOME is $HOME
+
+## ======================================================================
+$ echo "This message is \"sort of\" interesting"
+This message is "sort of" interesting
+
+## ======================================================================
+$ echo "This is a very long message that needs to extend \
+onto multiple lines"
+This is a very long message that needs to extend onto multiple lines
+
+## ======================================================================
+$ cut -f1 grades \
+| sort \
+| uniq -c \
+| sort -nr \
+| head -n1 \
+| cut -c9
+
+## ======================================================================
+$ alias less="less -c"
+$ less myfile
+$ \less myfile
+
+## ======================================================================
+$ ls -l /bin/ls
+-rwxr-xr-x 1 root root 133792 Jan 18  2018 /bin/ls
+
+## ======================================================================
+$ ls ls
+ls
+
+## ======================================================================
+$ echo $PATH
+/home/smith/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/usr/lib/java/bin
+
+## ======================================================================
+$ echo $PATH | tr : "\n"
+/home/smith/bin
+/usr/local/bin
+/usr/bin
+/bin
+/usr/games
+/usr/lib/java/bin
+
+## ======================================================================
+$ which cp
+/bin/cp
+$ which which
+/usr/bin/which
+
+## ======================================================================
+$ type cp
+cp is hashed (/bin/cp)
+$ type ll
+ll is aliased to ‘/bin/ls -l’
+$ type type
+type is a shell builtin
+
+## ======================================================================
+$ ls $HOME
+apple   banana   carrot
+$ ls -a $HOME
+.bashrc   apple   banana    carrot
+
+## ======================================================================
+PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin
+PS1='$ '
+EDITOR=emacs
+cd $HOME/Work/Projects
+alias g=grep
+echo "Welcome to Linux, friend!"
+
+## ======================================================================
+$ source $HOME/.bashrc
+$ . $HOME/.bashrc

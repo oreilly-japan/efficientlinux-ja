@@ -1,0 +1,141 @@
+## ======================================================================
+$ cd /bin
+$ ls -l bash cat ls grep
+-rwxr-xr-x 1 root root 1113504 Jun  6  2019 bash
+-rwxr-xr-x 1 root root   35064 Jan 18  2018 cat
+-rwxr-xr-x 1 root root  219456 Sep 18  2019 grep
+-rwxr-xr-x 1 root root  133792 Jan 18  2018 ls
+
+## ======================================================================
+$ cat /etc/shells
+/bin/sh
+/bin/bash
+/bin/csh
+/bin/zsh
+
+## ======================================================================
+$ echo $SHELL
+/bin/bash
+
+## ======================================================================
+$ bash
+
+## ======================================================================
+$
+
+## ======================================================================
+$ PS1="%% "
+%% ls
+animals.txt
+%% echo "This is a new shell"
+This is a new shell
+
+## ======================================================================
+%% exit
+$
+
+## ======================================================================
+$ chmod +x cdtest
+
+## ======================================================================
+$ pwd
+/home/smith
+$ ./cdtest
+Here is my current directory:
+/etc
+
+## ======================================================================
+$ pwd
+/home/smith
+
+## ======================================================================
+$ cut -f1 grades | sort | uniq -c | sort -nr | head -n1 | cut -c9
+
+## ======================================================================
+$ printenv | sort -i | less
+DISPLAY=:0
+EDITOR=emacs
+HOME=/home/smith
+LANG=en_US.UTF-8
+PWD=/home/smith/Music
+SHELL=/bin/bash
+TERM=xterm-256color
+USER=smith
+
+## ======================================================================
+$ title="Efficient Linux"
+$ echo $title
+Efficient Linux
+$ printenv title
+
+## ======================================================================
+$ MY_VARIABLE=10
+$ export MY_VARIABLE
+$ export ANOTHER_VARIABLE=20
+
+## ======================================================================
+$ export E="I am an environment variable"
+$ L="I am just a local variable"
+$ echo $E
+I am an environment variable
+$ echo $L
+I am just a local variable
+$ bash
+$ echo $E
+I am an environment variable
+$ echo $L
+$ exit
+
+## ======================================================================
+$ export E="I am the original value"
+$ bash
+$ echo $E
+I am the original value
+$ E="I was modified in a child"
+$ echo $E
+I was modified in a child
+$ exit
+$ echo $E
+I am the original value
+
+## ======================================================================
+$ alias
+alias gd='pushd'
+alias l='ls -CF'
+alias pd='popd'
+$ bash --norc
+$ alias
+$ echo $HOME
+/home/smith
+$ exit
+
+## ======================================================================
+$ (ls -l)
+-rw-r--r-- 1 smith smith 325 Oct 13 22:19 animals.txt
+$ (alias)
+alias gd=pushd
+alias l=ls -CF
+alias pd=popd
+$ (l)
+animals.txt
+
+## ======================================================================
+$ echo $BASH_SUBSHELL
+0
+$ bash
+$ echo $BASH_SUBSHELL
+0
+$ exit
+$ (echo $BASH_SUBSHELL)
+1
+
+## ======================================================================
+if [ -f "$HOME/.bashrc" ]
+then
+source "$HOME/.bashrc"
+fi
+
+## ======================================================================
+$ source ~/.bash_profile
+$ . ~/.bash_profile
+

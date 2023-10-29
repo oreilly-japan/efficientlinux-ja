@@ -1,0 +1,168 @@
+## ======================================================================
+$ firefox &
+$ google-chrome &
+$ opera &
+
+## ======================================================================
+$ firefox &> /dev/null &
+
+## ======================================================================
+$ firefox https://oreilly.com
+$ google-chrome https://oreilly.com
+$ opera https://oreilly.com
+
+## ======================================================================
+$ firefox --new-window https://oreilly.com
+$ google-chrome --new-window https://oreilly.com
+$ opera --new-window https://oreilly.com
+
+## ======================================================================
+$ firefox --private-window https://oreilly.com
+$ google-chrome --incognito https://oreilly.com
+$ opera --private https://oreilly.com
+
+## ======================================================================
+alias oreilly="firefox --new-window https://oreilly.com"
+
+## ======================================================================
+$ cat urls.txt
+duckduckgo.com  My search engine
+nytimes.com     My newspaper
+spotify.com     My music
+$ grep music urls.txt | cut -f1
+spotify.com
+$ google-chrome https://$(grep music urls.txt | cut -f1)
+
+## ======================================================================
+$ cat packages.txt
+1Z0EW7360669374701      UPS     Shoes
+568733462924            FedEx   Kitchen blender
+9305510823011761842873  USPS    Care package from Mom
+
+## ======================================================================
+$ curl https://efficientlinux.com/welcome.html
+Welcome to Efficient Linux.com!
+$ wget https://efficientlinux.com/welcome.html
+--2021-10-27 20:05:47--  https://efficientlinux.com/
+Resolving efficientlinux.com (efficientlinux.com)...
+Connecting to efficientlinux.com (efficientlinux.com)...
+2021-10-27 20:05:47 (12.8 MB/s) - ‘welcome.html’ saved [32/32]
+$ cat welcome.html
+Welcome to Efficient Linux.com!
+
+## ======================================================================
+$ wget -U MozillaURL 
+$ curl -A MozillaURL 
+
+## ======================================================================
+$ seq 1 20 | awk '{print "https://efficientlinux.com/images/" $1 ".jpg"}'
+https://efficientlinux.com/images/1.jpg
+https://efficientlinux.com/images/2.jpg
+https://efficientlinux.com/images/3.jpg
+
+## ======================================================================
+$ seq 1 20 \
+| awk '{print "wget https://efficientlinux.com/images/" $1 ".jpg"}' \
+| bash
+
+## ======================================================================
+$ seq 1 20 | xargs -I@ wget https://efficientlinux.com/images/@.jpg
+
+## ======================================================================
+$ curl -s https://efficientlinux.com/areacodes.html  \
+| hxnormalize -x  \
+| less
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<body>
+<h1>Area code test</h1>
+
+## ======================================================================
+$ curl -s https://efficientlinux.com/areacodes.html \
+| hxnormalize -x \
+| hxselect -c -s@ '#ac td'
+201@NJ@Hackensack, Jersey City@202@DC@Washington@203@CT@New Haven, Stamford@...
+
+## ======================================================================
+$ curl -s https://efficientlinux.com/areacodes.html \
+| hxnormalize -x \
+| hxselect -c -s'@' '#ac td' \
+| sed 's/\([0-9]*\)@\([A-Z][A-Z]\)@\([^@]*\)@/\1\t\2\t\3\n/g'
+201     NJ      Hackensack, Jersey City
+202     DC      Washington
+203     CT      New Haven, Stamford
+
+## ======================================================================
+areacode='\([0-9]*\)'
+state='\([A-Z][A-Z]\)'
+cities='\([^@]*\)'
+
+regexp="$areacode@$state@$cities@"
+
+replacement='\1\t\2\t\3\n'
+
+#   s/$regexp/$replacement/g
+curl -s https://efficientlinux.com/areacodes.html \
+| hxnormalize -x \
+| hxselect -c -s'@' '#ac td' \
+| sed "s/$regexp/$replacement/g"
+
+## ======================================================================
+$ lynx -dump https://efficientlinux.com/areacodes.html > tempfile
+$ cat tempfile
+Area code test
+
+Area code State   Location
+201       NJ      Hackensack, Jersey City
+202       DC      Washington
+203       CT      New Haven, Stamford
+
+## ======================================================================
+$ xclip < myfile.txt
+
+## ======================================================================
+$ echo "Efficient Linux at the Command Line" | xclip
+
+## ======================================================================
+$ xclip -o
+Efficient Linux at the Command Line
+$ xclip -o > anotherfile.txt
+$ xclip -o | wc -w
+6
+
+## ======================================================================
+$ cut -f1 grades | sort | uniq -c | sort -nr | head -n1 | cut -c9  | xclip
+
+## ======================================================================
+$ echo -n | xclip
+
+## ======================================================================
+$ echo https://oreilly.com | xclip -selection clipboard
+$ xclip -selection clipboard -o
+https://oreilly.com
+
+## ======================================================================
+$ xclip -sel c -o
+https://oreilly.com
+
+## ======================================================================
+$ firefox $(xclip -selection clipboard -o)
+
+## ======================================================================
+$ pman dropbox
+Passphrase: xxxxxxxx
+pman: Found dropbox: dropbox.com account for work
+pman: username and password loaded into X selections
+$ pman account
+Passphrase: xxxxxxxx
+pman: multiple matches for the following keys:
+google
+dropbox
+bank
+dropbox2
+pman: rerun this script with one of the keys
+
+## ======================================================================
+(sleep 30 && echo -n | xclip -selection primary) &
+

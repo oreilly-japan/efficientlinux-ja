@@ -1,0 +1,759 @@
+## ======================================================================
+$ cut -d: -f1 /etc/passwd | sort
+
+## ======================================================================
+$ cat *.txt | wc -l
+
+## ======================================================================
+$ date
+Mon Jun 28 16:57:33 EDT 2021
+$ date +%Y-%m-%d
+2021-06-28
+$ date +%H:%M:%S
+16:57:33
+
+## ======================================================================
+$ date +"I cannot believe it's already %A!"
+I cannot believe it's already Tuesday!
+
+## ======================================================================
+$ seq 1 5
+1
+2
+3
+4
+5
+
+## ======================================================================
+$ seq 1 2 10
+1
+3
+5
+7
+9
+
+## ======================================================================
+$ seq 3 -1 0
+3
+2
+1
+0
+
+## ======================================================================
+$ seq 1.1 0.1 2
+1.1
+1.2
+1.3
+2.0
+
+## ======================================================================
+$ seq -s/ 1 5
+1/2/3/4/5
+
+## ======================================================================
+$ seq -w 8 10
+08
+09
+10
+
+## ======================================================================
+$ echo {1..10}
+1 2 3 4 5 6 7 8 9 10
+$ echo {10..1}
+10 9 8 7 6 5 4 3 2 1
+$ echo {01..10}
+01 02 03 04 05 06 07 08 09 10
+
+## ======================================================================
+$ echo {1..1000..100}
+1 101 201 301 401 501 601 701 801 901
+$ echo {1000..1..100}
+1000 900 800 700 600 500 400 300 200 100
+$ echo {01..1000..100}
+0001 0101 0201 0301 0401 0501 0601 0701 0801 0901
+
+## ======================================================================
+$ ls
+file1 file2 file4
+$ ls file[2-4]
+file2 file4
+$ ls file{2..4}
+ls: cannot access 'file3': No such file or directory
+file2  file4
+
+## ======================================================================
+$ echo {A..Z}
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+
+## ======================================================================
+$ echo {A..Z} | tr -d ' '
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+$ echo {A..Z} | tr ' ' '\n'
+A
+B
+C
+Z
+
+## ======================================================================
+$ alias nth="echo {A..Z} | tr -d ' ' | cut -c"
+$ nth 10
+J
+
+## ======================================================================
+$ find /etc -print
+/etc
+/etc/issue.net
+/etc/nanorc
+/etc/apache2
+/etc/apache2/sites-available
+/etc/apache2/sites-available/default.conf
+
+## ======================================================================
+$ find . -type f -print
+$ find . -type d -print
+
+## ======================================================================
+$ find /etc -type f -name "*.conf" -print
+/etc/logrotate.conf
+/etc/systemd/logind.conf
+/etc/systemd/timesyncd.conf
+
+## ======================================================================
+$ find . -iname "*.txt" -print
+
+## ======================================================================
+$ find /etc -exec echo @ {} @ ";"
+@ /etc @
+@ /etc/issue.net @
+@ /etc/nanorc @
+
+## ======================================================================
+$ find /etc -type f -name "*.conf" -exec ls -l {} ";"
+-rw-r--r-- 1 root root 703  Aug 21  2017 /etc/logrotate.conf
+-rw-r--r-- 1 root root 1022 Apr 20  2018 /etc/systemd/logind.conf
+-rw-r--r-- 1 root root 604  Apr 20  2018 /etc/systemd/timesyncd.conf
+
+## ======================================================================
+$ find $HOME/tmp -type f -name "*~" -exec echo rm {} ";"
+rm /home/smith/tmp/file1~
+rm /home/smith/tmp/junk/file2~
+rm /home/smith/tmp/vm/vm-8.2.0b/lisp/vm-cus-load.el~
+$ find $HOME/tmp -type f -name "*~" -exec rm {} ";"
+
+## ======================================================================
+$ yes
+y
+y
+y 【Ctrl-C】
+$ yes woof!
+woof!
+woof!
+woof! 【Ctrl-C】
+
+## ======================================================================
+$ yes "Efficient Linux" | head -n3
+Efficient Linux
+Efficient Linux
+Efficient Linux
+
+## ======================================================================
+$ cat frost
+Whose woods these are I think I know.
+His house is in the village though;
+He will not see me stopping here
+To watch his woods fill up with snow.
+This is not the end of the poem.
+$ grep his frost
+To watch his woods fill up with snow.
+This is not the end of the poem.
+
+## ======================================================================
+$ grep -w his frost
+To watch his woods fill up with snow.
+
+## ======================================================================
+$ grep -i his frost
+His house is in the village though;
+To watch his woods fill up with snow.
+This is not the end of the poem.
+
+## ======================================================================
+$ grep -l his *
+frost
+
+## ======================================================================
+$ grep '^[A-Z]' myfile
+
+## ======================================================================
+$ grep -v '^$' myfile
+
+## ======================================================================
+$ grep 'cookie\|cake' myfile
+
+## ======================================================================
+$ grep '.....' myfile
+
+## ======================================================================
+$ grep '<.*>' page.html
+
+## ======================================================================
+$ grep w. frost
+Whose woods these are I think I know.
+He will not see me stopping here
+To watch his woods fill up with snow.
+
+## ======================================================================
+$ grep 'w\.' frost
+Whose woods these are I think I know.
+To watch his woods fill up with snow.
+
+## ======================================================================
+$ grep -F w. frost
+Whose woods these are I think I know.
+To watch his woods fill up with snow.
+$ fgrep w. frost
+Whose woods these are I think I know.
+To watch his woods fill up with snow.
+
+## ======================================================================
+$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+
+## ======================================================================
+$ cat /etc/shells
+/bin/sh
+/bin/bash
+/bin/csh
+
+## ======================================================================
+$ cut -d: -f7 /etc/passwd | sort -u | grep -f /etc/shells -F
+/bin/bash @<fn>{fnj0501}
+
+## ======================================================================
+$ cat alphabet
+A is for aardvark
+B is for bunny
+C is for chipmunk
+X is for xenorhabdus
+Y is for yak
+Z is for zebu
+
+## ======================================================================
+$ tail -n3 alphabet
+X is for xenorhabdus
+Y is for yak
+Z is for zebu
+
+## ======================================================================
+$ tail -n+25 alphabet
+Y is for yak
+Z is for zebu
+
+## ======================================================================
+$ head -n4 alphabet | tail -n1
+D is for dingo
+
+## ======================================================================
+$ head -n8 alphabet | tail -n3
+F is for falcon
+G is for gorilla
+H is for hawk
+
+## ======================================================================
+$ head -4 alphabet
+$ tail -3 alphabet
+$ tail +25 alphabet
+
+## ======================================================================
+$ less /etc/hosts
+127.0.0.1       localhost
+127.0.1.1           myhost      myhost.example.com
+192.168.1.2       frodo
+192.168.1.3     gollum
+192.168.1.28        gandalf
+
+## ======================================================================
+$ awk '{print $2}' /etc/hosts
+localhost
+myhost
+frodo
+gollum
+gandalf
+
+## ======================================================================
+$ echo Efficient fun Linux | awk '{print $1 $3}'
+EfficientLinux
+$ echo Efficient fun Linux | awk '{print $1, $3}'
+Efficient Linux
+
+## ======================================================================
+$ df / /data
+Filesystem      1K-blocks       Used  Available Use% Mounted on
+/dev/sda1      1888543276  902295944  890244772  51% /
+/dev/sda2      7441141620 1599844268 5466214400  23% /data
+
+## ======================================================================
+$ df / /data | awk '{print $4}'
+Available
+890244772
+5466214400
+
+## ======================================================================
+$ df / /data | awk 'FNR>1 {print $4}'
+890244772
+5466214400
+
+## ======================================================================
+$ echo efficient:::::linux | awk -F':*' '{print $2}'
+linux
+
+## ======================================================================
+$ cat poem1
+It is an ancient Mariner,
+And he stoppeth one of three.
+$ cat poem2
+'By thy long grey beard and glittering eye,
+$ cat poem3
+Now wherefore stopp'st thou me?
+$ cat poem1 poem2 poem3
+It is an ancient Mariner,
+And he stoppeth one of three.
+'By thy long grey beard and glittering eye,
+Now wherefore stopp'st thou me?
+
+## ======================================================================
+$ echo efficient             linux     in     $HOME
+efficient linux in /home/smith
+
+## ======================================================================
+$ cat poem1 poem2 poem3 | tac
+Now wherefore stopp'st thou me?
+'By thy long grey beard and glittering eye,
+And he stoppeth one of three.
+It is an ancient Mariner,
+
+## ======================================================================
+$ tac poem1 poem2 poem3
+And he stoppeth one of three.
+It is an ancient Mariner,
+'By thy long grey beard and glittering eye,
+Now wherefore stopp'st thou me?
+
+## ======================================================================
+192.168.1.34 - - [30/Nov/2021:23:37:39 -0500] "GET / HTTP/1.1" ...
+192.168.1.10 - - [01/Dec/2021:00:02:11 -0500] "GET /notes.html HTTP/1.1" ...
+192.168.1.8 - - [01/Dec/2021:00:04:30 -0500] "GET /stuff.html HTTP/1.1" ...
+
+## ======================================================================
+$ cat title-words1
+EFFICIENT
+AT
+COMMAND
+$ cat title-words2
+linux
+the
+line
+$ paste title-words1 title-words2
+EFFICIENT       linux
+AT      the
+COMMAND line
+$ paste title-words1 title-words2 | cut -f2
+linux
+the
+line
+
+## ======================================================================
+$ paste -d, title-words1 title-words2
+EFFICIENT,linux
+AT,the
+COMMAND,line
+
+## ======================================================================
+$ paste -d, -s title-words1 title-words2
+EFFICIENT,AT,COMMAND
+linux,the,line
+
+## ======================================================================
+$ paste -d "\n" title-words1 title-words2
+EFFICIENT
+linux
+AT
+the
+COMMAND
+line
+
+## ======================================================================
+$ cat file1
+Linux is all about efficiency.
+I hope you will enjoy this book.
+$ cat file2
+MacOS is all about efficiency.
+I hope you will enjoy this book.
+Have a nice day.
+$ diff file1 file2
+1c1
+< Linux is all about efficiency.
+---
+> MacOS is all about efficiency.
+2a3
+> Have a nice day.
+
+## ======================================================================
+$ diff file1 file2 | grep '^[<>]'
+< Linux is all about efficiency.
+> MacOS is all about efficiency.
+> Have a nice day.
+$ diff file1 file2 | grep '^[<>]' | cut -c3-
+Linux is all about efficiency.
+MacOS is all about efficiency.
+Have a nice day.
+
+## ======================================================================
+$ echo $PATH | tr : "\n"
+/home/smith/bin
+/usr/local/bin
+/usr/bin
+/bin
+/usr/games
+/usr/lib/java/bin
+
+## ======================================================================
+$ echo efficient | tr a-z A-Z
+EFFICIENT
+$ echo Efficient | tr A-Z a-z
+efficient
+
+## ======================================================================
+$ echo Efficient Linux | tr " " "\n"
+Efficient
+Linux
+
+## ======================================================================
+$ echo efficient linux | tr -d ' \t'
+efficientlinux
+
+## ======================================================================
+$ echo Efficient Linux! | rev
+!xuniL tneiciffE
+
+## ======================================================================
+$ cat celebrities
+Jamie Lee Curtis
+Zooey Deschanel
+Zendaya Maree Stoermer Coleman
+Rihanna
+
+## ======================================================================
+$ rev celebrities
+sitruC eeL eimaJ
+lenahcseD yeooZ
+nameloC remreotS eeraM ayadneZ
+annahiR
+$ rev celebrities | cut -d' ' -f1
+sitruC
+lenahcseD
+nameloC
+annahiR
+$ rev celebrities | cut -d' ' -f1 | rev
+Curtis
+Deschanel
+Coleman
+Rihanna
+
+## ======================================================================
+$ sed 10q myfile
+$ awk 'FNR<=10' myfile
+
+## ======================================================================
+$ echo image.jpg | sed 's/\.jpg/.png/'
+image.png
+$ echo "linux efficient" | awk '{print $2, $1}'
+efficient linux
+
+## ======================================================================
+$ awkprogram input-files 
+
+## ======================================================================
+$ awk -fprogram-file1 -fprogram-file2 -fprogram-file3 input-files 
+
+## ======================================================================
+$ awk '{print $NF}' celebrities
+Curtis
+Deschanel
+Coleman
+Rihanna
+
+## ======================================================================
+$ echo efficient linux | awk '/efficient/'
+efficient linux
+
+## ======================================================================
+$ awk -F'\t' '{print $4, "(" $3 ").", "\"" $2 "\""}' animals.txt
+Lutz, Mark (2010). "Programming Python"
+Barrett, Daniel (2005). "SSH, The Secure Shell"
+Schwartz, Randal (2012). "Intermediate Perl"
+Bell, Charles (2014). "MySQL High Availability"
+Siever, Ellen (2009). "Linux in a Nutshell"
+Boney, James (2005). "Cisco IOS in a Nutshell"
+Roman, Steven (1999). "Writing Word Macros"
+
+## ======================================================================
+$ awk -F'\t' '/^horse/{print $4, "(" $3 ").", "\"" $2 "\""}' animals.txt
+Siever, Ellen (2009). "Linux in a Nutshell"
+
+## ======================================================================
+$ awk -F'\t' '$3~/^201/{print $4, "(" $3 ").", "\"" $2 "\""}' animals.txt
+Lutz, Mark (2010). "Programming Python"
+Schwartz, Randal (2012). "Intermediate Perl"
+Bell, Charles (2014). "MySQL High Availability"
+
+## ======================================================================
+$ awk -F'\t' \
+'BEGIN {print "Recent books:"} \
+$3~/^201/{print "-", $4, "(" $3 ").", "\"" $2 "\""} \
+END {print "For more books, search the web"}' \
+animals.txt
+Recent books:
+- Lutz, Mark (2010). "Programming Python"
+- Schwartz, Randal (2012). "Intermediate Perl"
+- Bell, Charles (2014). "MySQL High Availability"
+For more books, search the web
+
+## ======================================================================
+$ seq 1 100 | awk '{s+=$1} END {print s}'
+5050
+
+## ======================================================================
+$ md5sum *.jpg | cut -c1-32 | sort | uniq -c | sort -nr | grep -v "      1 "
+3 f6464ed766daca87ba407aede21c8fcc
+2 c7978522c58425f6af3f095ef1de1cd5
+2 146b163929b6533f02e91bdf21cb9563
+
+## ======================================================================
+$ md5sum *.jpg
+146b163929b6533f02e91bdf21cb9563  image001.jpg
+63da88b3ddde0843c94269638dfa6958  image002.jpg
+146b163929b6533f02e91bdf21cb9563  image003.jpg
+
+## ======================================================================
+$ md5sum *.jpg | awk '{counts[$1]++}'
+
+## ======================================================================
+$ md5sum *.jpg \
+| awk '{counts[$1]++} \
+END {for (key in counts) print counts[key]}'
+1
+2
+2
+
+## ======================================================================
+$ md5sum *.jpg \
+| awk '{counts[$1]++} \
+END {for (key in counts) print counts[key] " " key}'
+1 714eceeb06b43c03fe20eb96474f69b8
+2 146b163929b6533f02e91bdf21cb9563
+2 c7978522c58425f6af3f095ef1de1cd5
+
+## ======================================================================
+$ md5sum *.jpg \
+| awk '{counts[$1]++; names[$1]=names[$1] " " $2} \
+END {for (key in counts) print counts[key] " " key ":" names[key]}'
+1 714eceeb06b43c03fe20eb96474f69b8: image011.jpg
+2 146b163929b6533f02e91bdf21cb9563: image001.jpg image003.jpg
+2 c7978522c58425f6af3f095ef1de1cd5: image019.jpg image020.jpg
+
+## ======================================================================
+$ md5sum *.jpg \
+| awk '{counts[$1]++; names[$1]=names[$1] " " $2} \
+END {for (key in counts) print counts[key] " " key ":" names[key]}' \
+| grep -v '^1 ' \
+| sort -nr
+3 f6464ed766daca87ba407aede21c8fcc: image007.jpg image012.jpg image014.jpg
+2 c7978522c58425f6af3f095ef1de1cd5: image019.jpg image020.jpg
+2 146b163929b6533f02e91bdf21cb9563: image001.jpg image003.jpg
+
+## ======================================================================
+$ sedscript input-files 
+
+## ======================================================================
+$ sed -escript1 -escript2 -escript3 input-files 
+
+## ======================================================================
+$ sed -fscript-file1 -fscript-file2 -fscript-file3 input-files 
+
+## ======================================================================
+$ echo Efficient Windows | sed "s/Windows/Linux/"
+Efficient Linux
+
+## ======================================================================
+$ sed 's/.* //' celebrities
+Curtis
+Deschanel
+Coleman
+Rihanna
+
+## ======================================================================
+$ echo Efficient Stuff | sed "s/stuff/linux/"
+Efficient Stuff
+$ echo Efficient Stuff | sed "s/stuff/linux/i"
+Efficient linux
+
+## ======================================================================
+$ echo efficient stuff | sed "s/f/F/"
+eFficient stuff
+$ echo efficient stuff | sed "s/f/F/g"
+eFFicient stuFF
+
+## ======================================================================
+$ seq 10 14 | sed 4d
+10
+11
+12
+14
+
+## ======================================================================
+$ seq 101 200 | sed '/[13579]$/d'
+102
+104
+106
+200
+
+## ======================================================================
+$ ls
+image.jpg.1  image.jpg.2  image.jpg.3
+
+## ======================================================================
+$ ls | sed "s/image\.jpg\.\([1-3]\)/image\1.jpg/"
+image1.jpg
+image2.jpg
+image3.jpg
+
+## ======================================================================
+$ ls
+apple.jpg.1  banana.png.2  carrot.jpg.3
+
+## ======================================================================
+$ ls | sed "s/\([a-z][a-z]*\)\.\([a-z][a-z][a-z]\)\.\([0-9]\)/\1\3.\2/"
+apple1.jpg
+banana2.png
+carrot3.jpg
+
+## ======================================================================
+$ cat title.txt
+This book is titled "Efficient Linux at the Command Line"
+$ fold -w40 title.txt
+This book is titled "Efficient Linux at
+the Command Line"
+
+## ======================================================================
+$ man -k width
+DisplayWidth (3)     - image format functions and macros
+DisplayWidthMM (3)   - image format functions and macros
+fold (1)             - wrap each input line to fit in specified width
+
+## ======================================================================
+$ man -k "wide|width"
+
+## ======================================================================
+$ sudo apt update
+$ apt-file searchstring 
+
+## ======================================================================
+$ file myfile-shift_jis
+myfile-shift_jis: Non-ISO extended-ASCII text, with CRLF line terminators
+
+## ======================================================================
+$ file myfile-utf-8
+myfile-utf-8: Unicode text, UTF-8 text
+
+## ======================================================================
+$ cat myfile-utf-8
+クッキーをたべる。
+ケーキを食べましょう。
+お菓子も食べてみよう。
+
+## ======================================================================
+## 文字化けが正しい出力です。
+$ cat myfile-shift_jis
+�N�b�L�[�����'�B
+�P�[�L��H�'◌��傤�B
+���`q���H�'Ă◌悤�B
+
+## ======================================================================
+$ grep '[ぁ-ん]' myfile-shift_jis
+
+## ======================================================================
+$ grep -P '\p{Han}' myfile-shift_jis
+grep: myfile-shift_jis: binary file matches
+
+## ======================================================================
+$ cat myfile-shift_jis \
+| iconv --from-code=SHIFT_JIS --to-code=UTF-8 \
+| grep '[あ-け]'
+ケーキを食べましょう。
+お菓子も食べてみよう。
+
+## ======================================================================
+$ grep -P '\p{Hiragana}' myfile-utf-8
+クッキーをたべる。
+ケーキを食べましょう。
+お菓子も食べてみよう。
+
+## ======================================================================
+$ cat myfile-shift_jis \
+| iconv --from-code=SHIFT_JIS --to-code=UTF-8 \
+| grep -P '\p{Hiragana}'
+クッキーをたべる。
+ケーキを食べましょう。
+お菓子も食べてみよう。
+
+## ======================================================================
+$ cat myfile-shift_jis \
+| iconv --from-code=SHIFT_JIS --to-code=UTF-8 \
+> myfilej
+
+## ======================================================================
+$ file myfilej
+myfilej: Unicode text, UTF-8 text, with CRLF line terminators
+
+## ======================================================================
+$ grep 'クッキー\|ケーキ' myfilej
+クッキーを食べる。
+ケーキを食べましょう。
+
+## ======================================================================
+$ grep '^[ァ-ヶー]' myfilej
+クッキーを食べる。
+ケーキを食べましょう。
+
+## ======================================================================
+$ grep '[ァ-ヶー]' myfilej
+クッキーを食べる。
+ケーキを食べましょう。
+
+## ======================================================================
+$ grep '[一-龠]' myfilej
+ケーキを食べましょう。
+お菓子も食べてみよう。
+
+## ======================================================================
+$ file myfile-shift_jis
+myfile-shift_jis: Non-ISO extended-ASCII text, with CRLF line terminators
+
+## ======================================================================
+$ cat myfile-shift_jis \
+| iconv --from-code=SHIFT_JIS --to-code=UTF-8 \
+| tr -d \\r > myfile-shift_jis-LF
+
+## ======================================================================
+$ file myfile-shift_jis-LF
+myfile-shift_jis-LF: Unicode text, UTF-8 text
+
+## ======================================================================
+$ cat myfile-shift_jis \
+| nkf -w -Lu -d > myfile-shift_jis-LF-nkf
+
+## ======================================================================
+$ file myfile-shift_jis-LF-nkf
+myfile-shift_jis-LF-nkf: Unicode text, UTF-8 text
